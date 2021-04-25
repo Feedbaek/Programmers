@@ -1,8 +1,13 @@
 def solution(participant, completion):
     answer = ''
-    for name in participant:
-        if name not in completion:
-            answer = name
+    for i in range(len(participant)):
+        flag = 0
+        for j in range(len(completion)):
+            if participant[i] == completion[j]:
+                completion[j] = 0
+                flag = 1
+                break
+        if flag == 0:
+            answer = participant[i]
             break
-        completion.remove(name)
     return answer

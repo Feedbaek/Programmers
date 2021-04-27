@@ -1,13 +1,14 @@
 def solution(participant, completion):
     answer = ''
-    for i in range(len(participant)):
-        flag = 0
-        for j in range(len(completion)):
-            if participant[i] == completion[j]:
-                completion[j] = 0
-                flag = 1
-                break
-        if flag == 0:
-            answer = participant[i]
-            break
-    return answer
+    a = {}
+    for pa in participant:
+        if pa in a.keys():
+            a[pa] += 1
+        else:
+            a[pa] = 0
+    for cp in completion:
+        if a[cp] == 0:
+            del a[cp]
+        else:
+            a[cp] -= 1
+    return list(a.keys())[0]

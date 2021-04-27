@@ -1,21 +1,20 @@
-import re
-
-
-def is_valid(answer):
-    answer = answer.lower()
-    for ch in answer:
-        if (ch.isalnum()):
-            continue
-        answer = re.sub(ch, "", answer)
-    return answer
-
-
 def solution(new_id):
+    new_id = new_id.lower()
     answer = ''
-    answer = is_valid(new_id)
-
-    print(answer)
+    for x in range(len(new_id)):
+        if new_id[x].isalnum() or new_id[x] in "-_.":
+            answer += new_id[x]
+        answer = answer.replace("..", '.')
+    if answer[0] == '.':
+        answer = answer[1:]
+    if len(answer) > 0 and answer[-1] == '.':
+        answer = answer[:-1]
+    if answer == '':
+        answer = 'a'
+    if len(answer) > 15:
+        answer = answer[:15]
+    if answer[-1] == '.':
+        answer = answer[:-1]
+    while (len(answer) < 3):
+        answer = answer + answer[-1]
     return answer
-
-
-solution("123+ @-AAASD")

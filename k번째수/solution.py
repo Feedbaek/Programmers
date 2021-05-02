@@ -1,4 +1,4 @@
-def olution(array, commands):
+def solution(array, commands):
     answer = []
     tmp = []
     for n in range(len(commands)):

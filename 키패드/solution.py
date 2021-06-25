@@ -3,7 +3,6 @@ def solution(numbers, hand):
 	l_loc = 10
 	r_loc = 12
 	for i in numbers:
-		print(f"i={i}, l_loc={l_loc}, r_loc={r_loc}")
 		l_mov = 0
 		l_dif = 0
 		r_mov = 0
@@ -28,19 +27,15 @@ def solution(numbers, hand):
 			continue
 		if (i == 0):
 			i = 11
-		l_dif = l_loc - i
-		if (l_dif < 0):
-			l_dif *= -1
-		while (l_dif > 3):
+		l_dif = abs(l_loc - i)
+		while (l_dif > 2):
 			l_mov += 1
 			l_dif -= 3
 		while (l_dif > 0):
 			l_mov += 1
 			l_dif -= 1
-		r_dif = r_loc - i
-		if (r_dif < 0):
-			r_dif *= -1
-		while (r_dif > 3):
+		r_dif = abs(r_loc - i)
+		while (r_dif > 2):
 			r_mov += 1
 			r_dif -= 3
 		while (r_dif > 0):
@@ -67,12 +62,3 @@ def solution(numbers, hand):
 				r_loc = 11
 			answer += 'R'
 	return answer
-
-def test():
-	t = ''
-	t += 'a'
-	t += 'b'
-	t += 'c'
-	return t
-
-print(solution([1, 3, 4, 5, 8, 2, 1, 4, 5, 9, 5], "right"))

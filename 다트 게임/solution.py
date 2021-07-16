@@ -8,14 +8,14 @@ def solution(dartResult):
 			else :		# 숫자가 10이 아니면
 				i += 1
 				score[i] = int(dartResult[idx])
-		elif dartResult[idx] == 'D':	# 옵션 'D'
+		elif dartResult[idx] == 'D':	# 보너스 'D'
 			score[i] = score[i]**2
-		elif dartResult[idx] == 'T':	# 옵션 'T'
+		elif dartResult[idx] == 'T':	# 보너스 'T'
 			score[i] = score[i]**3
-		elif dartResult[idx] == '*':	# 보너스 '*'
+		elif dartResult[idx] == '*':	# 옵션 '*'
 			score[i] *= 2
 			if i > 0:		# 이전 점수가 있으면
 				score[i - 1] *= 2
-		elif dartResult[idx] == '#':	# 점수 마이너스
+		elif dartResult[idx] == '#':	# 옵션 '#'
 			score[i] *= -1
 	return sum(score)

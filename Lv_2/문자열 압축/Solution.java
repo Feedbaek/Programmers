@@ -23,7 +23,7 @@ class Solution {
 					str = s.substring(j);
 					ret += str;		// 압축 문자열에 추가
 				}
-				j += cnt * i;		// 반복문 조건
+				j += cnt * i;		// 중복 문자열 크기 포함해서 인덱스 이동
 			}
 			answer[i - 1] = ret.length();		// 리스트에 문자열 길이 대입
 		}

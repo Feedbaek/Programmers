@@ -1,7 +1,7 @@
 class Solution {
 	public char rec_3(int n, char[] s, StringBuilder sum) {
 		int x = n / 3;
-		if (n % 3 == 0 && x > 0)
+		if (n % 3 == 0)
 			x--;
 		if (x > 0)
 			sum.append(rec_3(x, s, sum));

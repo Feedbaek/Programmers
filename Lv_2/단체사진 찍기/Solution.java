@@ -1,5 +1,6 @@
 class Solution {
 	static char[] screen = {'0', '0', '0', '0', '0', '0', '0', '0'};
+	static char[] name = {'A', 'C', 'F', 'J', 'M', 'N', 'R', 'T'};
 	static int ret = 0;
 
 	static int factorial(int n) {
@@ -121,7 +122,6 @@ class Solution {
 				else {
 					less(where, k, n, x1, data);
 				}
-
 			}
 			else {
 				for (int i=0; i < 8; i++) {

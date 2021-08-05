@@ -18,7 +18,7 @@ class Solution {
 		int gap = searchIndex(p1) - searchIndex(p2);
 
 		if (gap < 0)
-		gap *= -1;
+			gap *= -1;
 		if (op == '=' && gap == wall+1)
 				return (true);
 		else if (op == '>' && gap > wall+1)

@@ -17,49 +17,53 @@ class Solution {
 		return (-1);
 	}
 
-	static void equal(int idx, int n, int x1, String[] data) {
+	static void equal(int idx, int k, int n, int x1, String[] data) {
 		int where;
 		int x;
+		int gap;
 
 		if (x1 == 0)
 			x = 2;
 		else
 			x = 0;
 		where = searchInScreen(data[n].charAt(x));
+		gap = where - idx > 0 ? where - idx : idx - where;
 		if (where != -1) {
-			if (idx+1 == where) {
+			if (gap == k+1) {
 				rec(n-1, data);
 			}
 		}
 		else {
-			if (idx+1 < 8 && screen[idx+1] == '0') {
-				screen[idx+1] =  data[n].charAt(x);
+			if (idx+k+1 < 8 && screen[idx+k+1] == '0') {
+				screen[idx+k+1] =  data[n].charAt(x);
 				rec(n-1, data);
-				screen[idx+1] = '0';
+				screen[idx+k+1] = '0';
 			}
 		}
 	}
 
-	static void more(int idx, int n, int x1, String[] data) {
+	static void more(int idx, int k, int n, int x1, String[] data) {
 		int where;
 		int x;
+		int gap;
 
 		if (x1 == 0)
 			x = 2;
 		else
 			x = 0;
 		where = searchInScreen(data[n].charAt(x));
+		gap = where - idx > 0 ? where - idx : idx - where;
 		if (where != -1) {
-			if (idx < where && idx+2 <= where) {
+			if (gap > k+1) {
 				rec(n-1, data);
 			}
 		}
 		else {
-			for (; idx+2< 8; idx++) {
-				if (screen[idx+2] == '0') {
-					screen[idx+2] =  data[n].charAt(x);
+			for (; idx+k+2< 8; idx++) {
+				if (screen[idx+k+2] == '0') {
+					screen[idx+k+2] =  data[n].charAt(x);
 					rec(n-1, data);
-					screen[idx+2] = '0';
+					screen[idx+k+2] = '0';
 				}
 			}
 		}
@@ -68,14 +72,16 @@ class Solution {
 	static void less(int idx, int k, int n, int x1, String[] data) {
 		int where;
 		int x;
+		int gap;
 
 		if (x1 == 0)
 			x = 2;
 		else
 			x = 0;
 		where = searchInScreen(data[n].charAt(x));
+		gap = where - idx > 0 ? where - idx : idx - where;
 		if (where != -1) {
-			if (idx < where && idx+k >= where) {
+			if (gap < k+1) {
 				rec(n-1, data);
 			}
 		}
@@ -107,10 +113,10 @@ class Solution {
 			where = searchInScreen(data[n].charAt(x1));
 			if (where != -1) {
 				if (data[n].charAt(3) == '=') {
-					equal(where + k, n, x1, data);
+					equal(where, k, n, x1, data);
 				}
 				else if (data[n].charAt(3) == '>') {
-					more(where + k, n, x1, data);
+					more(where, k, n, x1, data);
 				}
 				else {
 					less(where, k, n, x1, data);
@@ -123,10 +129,10 @@ class Solution {
 						continue;
 					screen[i] = data[n].charAt(x1);
 					if (data[n].charAt(3) == '=') {
-						equal(i + k, n, x1, data);
+						equal(i, k, n, x1, data);
 					}
 					else if (data[n].charAt(3) == '>') {
-						more(i + k, n, x1, data);
+						more(i, k, n, x1, data);
 					}
 					else {
 						less(i, k, n, x1, data);

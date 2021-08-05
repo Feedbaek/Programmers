@@ -3,159 +3,58 @@ class Solution {
 	static char[] name = {'A', 'C', 'F', 'J', 'M', 'N', 'R', 'T'};
 	static int ret = 0;
 
-	static int factorial(int n) {
-		if (n < 2)
-			return (1);
-		return (n * factorial(n-1));
-	}
-
-	static int searchInScreen(char ch) {
-		for (int i=0; i<8; i++) {
-			if (screen[i] == ch) {
+	static int searchIndex(char ch) {
+		for (int i=0; i<8; i++)
+			if (screen[i] == ch)
 				return (i);
-			}
-		}
 		return (-1);
 	}
 
-	static void equal(int idx, int k, int n, int x1, String[] data) {
-		int where;
-		int x;
-		int gap;
+	static boolean validate(String condition) {
+		char p1 = condition.charAt(0);
+		char p2 = condition.charAt(2);
+		char op = condition.charAt(3);
+		int wall = condition.charAt(4) - 48;
+		int gap = searchIndex(p1) - searchIndex(p2);
 
-		if (x1 == 0)
-			x = 2;
-		else
-			x = 0;
-		where = searchInScreen(data[n].charAt(x));
-		gap = where - idx > 0 ? where - idx : idx - where;
-		if (where != -1) {
-			if (gap == k+1) {
-				rec(n-1, data);
-			}
-		}
-		else {
-			if (idx+k+1 < 8 && screen[idx+k+1] == '0') {
-				screen[idx+k+1] =  data[n].charAt(x);
-				rec(n-1, data);
-				screen[idx+k+1] = '0';
-			}
-		}
+		if (gap < 0)
+		gap *= -1;
+		if (op == '=' && gap == wall+1)
+				return (true);
+		else if (op == '>' && gap > wall+1)
+				return (true);
+		else if (op == '<' && gap < wall+1)
+				return (true);
+		return (false);
 	}
 
-	static void more(int idx, int k, int n, int x1, String[] data) {
-		int where;
-		int x;
-		int gap;
-
-		if (x1 == 0)
-			x = 2;
+	static void rec(int r, int n, String[] data) {
+		if (r == 8) {
+			for (int i=0; i<n; i++)
+				if (!validate(data[i]))
+					return ;
+			ret++;
+		}
 		else
-			x = 0;
-		where = searchInScreen(data[n].charAt(x));
-		gap = where - idx > 0 ? where - idx : idx - where;
-		if (where != -1) {
-			if (gap > k+1) {
-				rec(n-1, data);
-			}
-		}
-		else {
-			for (; idx+k+2< 8; idx++) {
-				if (screen[idx+k+2] == '0') {
-					screen[idx+k+2] =  data[n].charAt(x);
-					rec(n-1, data);
-					screen[idx+k+2] = '0';
-				}
-			}
-		}
-	}
-
-	static void less(int idx, int k, int n, int x1, String[] data) {
-		int where;
-		int x;
-		int gap;
-
-		if (x1 == 0)
-			x = 2;
-		else
-			x = 0;
-		where = searchInScreen(data[n].charAt(x));
-		gap = where - idx > 0 ? where - idx : idx - where;
-		if (where != -1) {
-			if (gap < k+1) {
-				rec(n-1, data);
-			}
-		}
-		else {
-			for (int i=0; i < k; i++) {
-				if (idx+i < 8 && screen[idx+i]== '0') {
-					screen[idx+i] =  data[n].charAt(x);
-					rec(n-1, data);
-					screen[idx+i] = '0';
-				}
-			}
-		}
-	}
-
-	static void rec(int n, String[] data) {
-		int k, where;
-
-		if (n < 0) {
-			int cnt = 0;
 			for (int i=0; i<8; i++)
-				if (screen[i] == '0')
-					cnt++;
-			ret += factorial(cnt);
-			System.out.println(screen);
-			return ;
-		}
-		k = data[n].charAt(4) - 48;
-		for (int x1=0; x1 < 3; x1+=2) {
-			where = searchInScreen(data[n].charAt(x1));
-			if (where != -1) {
-				if (data[n].charAt(3) == '=') {
-					equal(where, k, n, x1, data);
+				if (searchIndex(name[i]) == -1) {
+					screen[r] = name[i];
+					rec(r+1, n, data);
+					screen[r] = '0';
 				}
-				else if (data[n].charAt(3) == '>') {
-					more(where, k, n, x1, data);
-				}
-				else {
-					less(where, k, n, x1, data);
-				}
-			}
-			else {
-				for (int i=0; i < 8; i++) {
-					if (screen[i] != '0')
-						continue;
-					screen[i] = data[n].charAt(x1);
-					if (data[n].charAt(3) == '=') {
-						equal(i, k, n, x1, data);
-					}
-					else if (data[n].charAt(3) == '>') {
-						more(i, k, n, x1, data);
-					}
-					else {
-						less(i, k, n, x1, data);
-					}
-					screen[i] = '0';
-				}
-			}
-		}
 	}
+
 	public int solution(int n, String[] data) {
-		for (int i=0; i<8; i++)
-			screen[i] = '0';
 		ret = 0;
-		rec(n-1, data);
+		rec(0, n, data);
 		return ret;
 	}
 	public static void main(String[] args) {
-		int n = 2;
 		String[] data1 = {"N~F=0", "R~T>2"};
 		Solution s1 = new Solution();
-		System.out.println("return: "+s1.solution(n, data1));
+		System.out.println("return: "+s1.solution(2, data1));
 		String[] data2 = {"M~C<2", "C~M>1"};
 		Solution s2 = new Solution();
-		System.out.println("return: "+s2.solution(n, data2));
+		System.out.println("return: "+s2.solution(2, data2));
 	}
 }

@@ -1,16 +1,16 @@
 class Solution {
-	static char[] screen = {'0', '0', '0', '0', '0', '0', '0', '0'};	// 배치될 문자 배열
-	static char[] name = {'A', 'C', 'F', 'J', 'M', 'N', 'R', 'T'};	// 프렌즈 이름
-	static int ret = 0;	// 결과 값 전역변수
+	char[] screen = {'0', '0', '0', '0', '0', '0', '0', '0'};	// 배치될 문자 배열
+	char[] name = {'A', 'C', 'F', 'J', 'M', 'N', 'R', 'T'};	// 프렌즈 이름
+	int ret = 0;	// 결과 값 전역변수
 
-	static int searchIndex(char ch) {	// 원하는 문자가 있는지 검사
+	int searchIndex(char ch) {	// 원하는 문자가 있는지 검사
 		for (int i=0; i<8; i++)
 			if (screen[i] == ch)	// 문자가 존재하면 해당 인덱스 반환
 				return (i);
 		return (-1);	// 없으면 -1을 리턴
 	}
 
-	static boolean validate(String condition) {	// 조건이 유효한지 검사
+	boolean validate(String condition) {	// 조건이 유효한지 검사
 		char p1 = condition.charAt(0);
 		char p2 = condition.charAt(2);
 		char op = condition.charAt(3);
@@ -28,7 +28,7 @@ class Solution {
 		return (false);	// 조건을 만족하지 않으면 false
 	}
 
-	static void rec(int r, int n, String[] data) {	// 재귀함수로 탐색
+	void rec(int r, int n, String[] data) {	// 재귀함수로 탐색
 		if (r == 8) {	// 프렌즈가 모두 배치되면
 			for (int i=0; i<n; i++)
 				if (!validate(data[i]))	// 조건을 만족하지 않으면 종료
@@ -45,7 +45,7 @@ class Solution {
 	}
 
 	public int solution(int n, String[] data) {
-		ret = 0;	// 결과 값 전역변수 초기화
+		// ret = 0;	// 결과 값 전역변수 초기화, static 전역변수 아니면 없어도 됨
 		rec(0, n, data);	// 재귀함수 시작
 		return (ret);	// 결과 값 뱐환
 	}

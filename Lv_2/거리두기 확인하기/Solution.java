@@ -1,13 +1,13 @@
 class Solution {
-	int[][] map = new int[5][5];
+	int[][] map = new int[5][5];	// 경로 체크 배열
 
 	boolean check_DFS(int r, int x, int y, String[] place) {
-		if (r==2)
+		if (r==2)		// 2번만 체크
 			return (true);
-		map[x][y] = r+1;
-		if (x+1 < 5 && map[x+1][y] == 0 && place[x+1].charAt(y) != 'X')
-			if (place[x+1].charAt(y) == 'P' || !check_DFS(r+1, x+1, y, place))
-				return (false);
+		map[x][y] = r+1;	// 경로 체크
+		if (x+1 < 5 && map[x+1][y] == 0 && place[x+1].charAt(y) != 'X')	// 파티션이 없는 첫 경로면
+			if (place[x+1].charAt(y) == 'P' || !check_DFS(r+1, x+1, y, place))	// 거리 내에 사람체크
+				return (false);			// 사람이 있으면 false
 		if (x-1 >= 0 && map[x-1][y] == 0 && place[x-1].charAt(y) != 'X')
 			if (place[x-1].charAt(y) == 'P' || !check_DFS(r+1, x-1, y, place))
 				return (false);
@@ -23,9 +23,9 @@ class Solution {
 	int check_BFS(String[] place) {
 		for (int x=0; x<5; x++)
 			for (int y=0; y<5; y++)
-				if (place[x].charAt(y) == 'P') {
-					map = new int[5][5];
-					if (!check_DFS(0, x, y, place))
+				if (place[x].charAt(y) == 'P') {	// 사람이 있으면 체크
+					map = new int[5][5];	// 경로 배열 초기화
+					if (!check_DFS(0, x, y, place))		// 거리두기 위반
 						return (0);
 				}
 		return (1);

@@ -34,7 +34,7 @@ class Solution {
 	public int[] solution(String[][] places) {
 		int[] answer = new int[5];
 		for (int i=0; i<5; i++)
-			answer[i] = check_BFS(places[i]);
+			answer[i] = check_BFS(places[i]);	// 결과 0 또는 1 대입
 		return answer;
 	}
 	public static void main(String[] args) {

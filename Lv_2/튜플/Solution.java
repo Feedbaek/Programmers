@@ -1,5 +1,5 @@
 class Solution {
-	Boolean in_arr(int num, int[] arr) {
+	Boolean in_arr(int num, int[] arr) {	// 배열에 숫자가 있는지 확인
 		for (int i=0; i<arr.length; i++)
 			if (arr[i] == num)
 				return true;

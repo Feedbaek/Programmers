@@ -1,5 +1,6 @@
 {
 	"java.project.sourcePaths": [
-		"Lv_2/튜플"
+		//"Lv_2/튜플",
+		"Lv_2/프린터"
 	]
 }

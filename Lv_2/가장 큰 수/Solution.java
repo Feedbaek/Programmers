@@ -1,40 +1,33 @@
 class Solution {
 	void buble_sort(String[] numbers) {	// 버블 정렬함수
 		String tmp;
+		int max_len;
 
-		for (int i=0; i<numbers.length-1; i++)
-			for (int j=0; j<numbers.length-1-i; j++)
-				for (int idx=0;;) {	// 두 문자열의 앞글자 비교
-					if (numbers[j].charAt(idx) < numbers[j+1].charAt(idx)) {	// 뒷 문자열이 크다면 위치 바꿈
+		for (int i=0; i<numbers.length-1; i++) {
+			for (int j=0; j<numbers.length-1-i; j++) {
+				max_len = numbers[j].length() > numbers[j+1].length() ? numbers[j].length()+1 : numbers[j+1].length()+1;
+				for (int idx1=0, idx2=0; max_len > 0; max_len--) {	// 두 문자열의 앞글자 비교
+					if (numbers[j].charAt(idx1) < numbers[j+1].charAt(idx2)) {	// 뒷 문자열이 크다면 위치 바꿈
 						tmp = numbers[j];
 						numbers[j] = numbers[j+1];
 						numbers[j+1] = tmp;
 						break;
 					}
-					else if (numbers[j].charAt(idx) == numbers[j+1].charAt(idx)) {
-						if (idx+1 == numbers[j].length() || idx+1 == numbers[j+1].length()) {
-							if (numbers[j].length() < numbers[j+1].length()) {
-								if (numbers[j].charAt(0) < numbers[j+1].charAt(idx+1)) {
-									tmp = numbers[j];
-									numbers[j] = numbers[j+1];
-									numbers[j+1] = tmp;
-								}
-							}
-							else if (numbers[j].length() > numbers[j+1].length()) {
-								if (numbers[j].charAt(idx+1) < numbers[j+1].charAt(0)) {
-									tmp = numbers[j];
-									numbers[j] = numbers[j+1];
-									numbers[j+1] = tmp;
-								}
-							}
-							break;
-						}	// 두 문자열이 같으면 통과
-						idx++;							// 인덱스를 증가시킴
-						// 문자열의 앞 문자가 같으면 다음 문자를 비교하기 위해
+					else if (numbers[j].charAt(idx1) == numbers[j+1].charAt(idx2)) {
+						if (idx1+1 == numbers[j].length()) {
+							idx1 = -1;
+						}
+						if (idx2+1 == numbers[j+1].length()) {
+							idx2 = -1;
+						}
+						idx1++;
+						idx2++;
 					}
-					else	// 뒤 문자열이 크다면 통과
+					else	// 앞 문자열이 크다면 통과
 						break;
 				}
+			}
+		}
 	}
 
 	public String solution(int[] numbers) {
@@ -58,5 +51,6 @@ class Solution {
 		Solution s = new Solution();
 		System.out.println(s.solution(new int[] {40, 403}));
 		System.out.println(s.solution(new int[] {30, 3, 34, 5, 9}));
+		System.out.println(s.solution(new int[] {1, 121, 112, 11101, 2}));
 	}
 }

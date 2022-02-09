@@ -9,4 +9,14 @@ class Solution {
 		}
 		return answer;
 	}
+	public static void main(String[] args) {
+		int x = 2;
+		int n = 5;
+		long[] answer;
+		Solution s = new Solution();
+		answer = s.solution(x, n);
+		for (int i=0; i<n; i++) {
+			System.out.println(answer[i]);
+		}
+	}
 }
